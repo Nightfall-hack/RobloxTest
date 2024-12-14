@@ -1,0 +1,16 @@
+local Players = game:GetService("Players")
+
+-- Відслідковуємо всіх гравців, які заходять у гру
+Players.PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function(character)
+        -- Чекаємо, поки персонаж буде створений
+        local humanoid = character:WaitForChild("Humanoid")
+        
+        -- Відслідковуємо зміну швидкості
+        humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+            if humanoid.WalkSpeed > 16 then -- Швидкість вище стандартної
+                print("[ПОПЕРЕДЖЕННЯ] Гравець " .. player.Name .. " змінює швидкість!")
+            end
+        end)
+    end)
+end)
