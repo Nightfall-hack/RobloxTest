@@ -1,16 +1,27 @@
-local Players = game:GetService("Players")
+-- Створення UI вікна
+local ScreenGui = Instance.new("ScreenGui") -- Основний контейнер для UI
+local Frame = Instance.new("Frame")        -- Вікно
+local TextLabel = Instance.new("TextLabel") -- Текст у вікні
 
--- Відслідковуємо всіх гравців, які заходять у гру
-Players.PlayerAdded:Connect(function(player)
-    player.CharacterAdded:Connect(function(character)
-        -- Чекаємо, поки персонаж буде створений
-        local humanoid = character:WaitForChild("Humanoid")
-        
-        -- Відслідковуємо зміну швидкості
-        humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
-            if humanoid.WalkSpeed > 16 then -- Швидкість вище стандартної
-                print("[ПОПЕРЕДЖЕННЯ] Гравець " .. player.Name .. " змінює швидкість!")
-            end
-        end)
-    end)
-end)
+-- Налаштування ScreenGui
+ScreenGui.Parent = game:GetService("CoreGui") -- Робить UI видимим у грі
+
+-- Налаштування вікна (Frame)
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30) -- Колір вікна
+Frame.BorderSizePixel = 2                          -- Товщина рамки
+Frame.Position = UDim2.new(0.4, 0, 0.3, 0)         -- Позиція на екрані
+Frame.Size = UDim2.new(0, 300, 0, 150)             -- Розмір вікна
+
+-- Налаштування тексту
+TextLabel.Parent = Frame
+TextLabel.Text = "Вітаю! Скрипт запущено!"         -- Текст у вікні
+TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- Колір тексту
+TextLabel.BackgroundTransparency = 1.0             -- Прозорий фон
+TextLabel.Size = UDim2.new(1, 0, 1, 0)             -- Текст на весь розмір вікна
+TextLabel.Font = Enum.Font.SourceSansBold          -- Шрифт тексту
+TextLabel.TextSize = 24                            -- Розмір шрифту
+TextLabel.TextWrapped = true                       -- Автоматичний перенос тексту
+
+-- Повідомлення у консоль
+print("[INFO]: UI вікно успішно завантажено!")
